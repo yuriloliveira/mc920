@@ -21,7 +21,6 @@ def show_filtered_image(src_image, mask_id):
     other_mask_id = 'h4' if mask_id == 'h3' else 'h3' if mask_id == 'h4' else None
 
     if (other_mask_id):
-        print(other_mask_id)
         other_filtered_image = filter_image(src_image, other_mask_id)
         combined_filters_image = add_filters(filtered_image, other_filtered_image)
         show_src_and_filtered_image(
@@ -29,6 +28,9 @@ def show_filtered_image(src_image, mask_id):
             combined_filters_image,
             'source image / combination of h3 and h4 masks'
         )
+        return (filtered_image, other_filtered_image)
+    
+    return (filtered_image, None)
 
 def show_src_and_filtered_image(src_image, filtered_image, title=''):
     result = np.hstack((src_image, filtered_image))
