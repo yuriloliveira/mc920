@@ -22,7 +22,7 @@ MASKS = {
     'h5': [[-1, -1, -1],
            [-1,  8, -1],
            [-1, -1, -1]],
-    'h6': np.full(9, 1).reshape(3, 3),
+    'h6': (1/9) * np.full(9, 1).reshape(3, 3),
     'h7': [[-1, -1,  2],
            [-1,  2, -1],
            [2, -1, -1]],
@@ -42,4 +42,7 @@ MASKS = {
 }
 
 def get_mask(mask_id):
-    return np.array(MASKS[mask_id])    
+    return np.array(MASKS[mask_id])
+
+def get_all_masks_ids():
+    return map(lambda m: 'h' + str(m), np.arange(1, 12))
