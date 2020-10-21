@@ -23,7 +23,6 @@ hflip = args['hflip']
 
 img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
 flip_axis = 1 if hflip else None
-print(flip_axis)
 (filtered_image, combined_filters_image) = show_filtered_image(img, mask_id, flip_axis=flip_axis)
 
 if (output_filename):
