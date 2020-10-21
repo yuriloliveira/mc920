@@ -14,23 +14,29 @@ def plot_filtered_images(src_image, mask_ids):
     for mask_id in mask_ids:
         plot_filtered_image(src_image, mask_id)
 
-def show_filtered_image(src_image, mask_id):
+def show_filtered_image(src_image, mask_id, flip_axis=None):
     filtered_image = filter_image(src_image, mask_id)
-    show_src_and_filtered_image(src_image, filtered_image, 'source image / filtered image (mask = ' + mask_id + ')')
-
     other_mask_id = 'h4' if mask_id == 'h3' else 'h3' if mask_id == 'h4' else None
+    combined_filters_image = None
 
     if (other_mask_id):
         other_filtered_image = filter_image(src_image, other_mask_id)
         combined_filters_image = add_filters(filtered_image, other_filtered_image)
+    
+    if (flip_axis in [0, 1]):
+        filtered_image = np.flip(filtered_image, axis=flip_axis)
+        combined_filters_image = None\
+            if combined_filters_image is None\
+            else np.flip(combined_filters_image, axis=flip_axis)
+            
+    show_src_and_filtered_image(src_image, filtered_image, 'source image / filtered image (mask = ' + mask_id + ')')
+    if (combined_filters_image is not None):
         show_src_and_filtered_image(
             src_image,
             combined_filters_image,
             'source image / combination of h3 and h4 masks'
         )
-        return (filtered_image, combined_filters_image)
-    
-    return (filtered_image, None)
+    return (filtered_image, combined_filters_image)
 
 def show_src_and_filtered_image(src_image, filtered_image, title=''):
     result = np.hstack((src_image, filtered_image))
