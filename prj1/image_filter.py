@@ -26,8 +26,8 @@ flip_axis = 1 if hflip else None
 
 if (output_filename):
     cv2.imwrite(output_filename, filtered_image)
-    if (combined_filters_image is not None and output_combined_filename):
-        cv2.imwrite(output_combined_filename, combined_filters_image)
+if (combined_filters_image is not None and output_combined_filename):
+    cv2.imwrite(output_combined_filename, combined_filters_image)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
