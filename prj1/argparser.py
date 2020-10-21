@@ -26,6 +26,11 @@ class Parser:
             dest='hflip',\
             action='store_true'
         )
+        self.__parser.add_argument('--skip-image-show', '-ss',\
+            help="if passed, a window showing the source image and the filtered won't be open",\
+            dest='skip_image_show',\
+            action='store_true'
+        )
         self.__args = vars(self.__parser.parse_args())
 
     def get_arg(self, arg_id):

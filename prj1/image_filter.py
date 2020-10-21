@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 import sys
-# from argparse import ArgumentParser
 from argparser import Parser
 from masks import get_mask
 from filter_utils import show_filtered_image, filter_image, add_filters, show_src_and_filtered_image
@@ -14,10 +13,16 @@ mask_id = parser.get_arg('mask')
 output_filename = parser.get_arg('output_path')
 output_combined_filename = parser.get_arg('output_combined_path')
 hflip = parser.get_arg('hflip')
+skip_image_show = parser.get_arg('skip_image_show')
 
 img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
 flip_axis = 1 if hflip else None
-(filtered_image, combined_filters_image) = show_filtered_image(img, mask_id, flip_axis=flip_axis)
+(filtered_image, combined_filters_image) = show_filtered_image(
+    img,\
+    mask_id,\
+    flip_axis=flip_axis,\
+    show_images=not skip_image_show\
+)
 
 if (output_filename):
     cv2.imwrite(output_filename, filtered_image)
