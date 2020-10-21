@@ -23,7 +23,6 @@ img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
 (filtered_image, combined_filters_image) = show_filtered_image(img, mask_id)
 
 if (output_filename):
-    print(output_filename)
     cv2.imwrite(output_filename, filtered_image)
     if (combined_filters_image is not None and output_combined_filename):
         cv2.imwrite(output_combined_filename, combined_filters_image)

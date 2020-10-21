@@ -28,7 +28,7 @@ def show_filtered_image(src_image, mask_id):
             combined_filters_image,
             'source image / combination of h3 and h4 masks'
         )
-        return (filtered_image, other_filtered_image)
+        return (filtered_image, combined_filters_image)
     
     return (filtered_image, None)
 
@@ -40,9 +40,9 @@ def filter_image(src_image, mask_id, borderType=cv2.BORDER_REPLICATE):
     return cv2.filter2D(src_image, -1, get_mask(mask_id), borderType=borderType)
 
 def add_filters(img1, img2):
-    added_filer_image = (img1.astype(float)**2 + img2.astype(float)**2) ** (1/2)
+    added_filter_image = (img1.astype(float)**2 + img2.astype(float)**2) ** (1/2)
     return cv2.normalize(
-        added_filer_image,
+        added_filter_image,
         None,
         alpha=0,
         beta=255,
