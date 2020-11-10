@@ -13,6 +13,10 @@ class Parser:
             help='error distribution form item (a, b, c, d, e, f)',\
             dest='error_dist'
         )
+        self.__parser.add_argument('--sweep-mode', '-sm',\
+            help='sweep mode (default or alternate)',\
+            dest='sweep_mode'
+        )
         self.__parser.add_argument('--out', '-o',\
             help='path to output of filtering (output will be an .png image)',\
             dest='output_path'

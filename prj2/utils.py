@@ -1,21 +1,34 @@
 import numpy as np
+import cv2
 import math
 from error_distributions import get_error_distribution
 
-
-def halftoning(img, edist_id='a'):
+def halftoning(img, edist_id='a', sweep_mode='default'):
     PIXEL_SIZE = 3 # only supports rgb images
     (width, height, _) = img.shape
     result = np.zeros((width, height, PIXEL_SIZE))
     error_distribution = get_error_distribution(edist_id)
+    
+    for row in range(0, height):
+        row_range_min = 0 if sweep_mode != 'alternate' or row % 2 == 0 else width
+        row_range_max = width if row_range_min == 0 else 0
+        for col in range(row_range_min, row_range_max):
+            result[row][col] = convert_pixel(img[row][col])
+            err_rgb = get_error_rgb(img[row][col], result[row][col]) 
+            apply_err(img, (row, col), err_rgb, error_distribution)
 
-    for x in range(0, width):
-        for y in range(0, height):
-            result[x][y] = convert_pixel(img[x][y])
-            err_rgb = get_error_rgb(img[x][y], result[x][y]) 
-            apply_err(img, (x, y), err_rgb, error_distribution)
-
-    return result
+    #####################################################################
+    ### IMPORTANTE: Comparar sem normalize/com normalize no relatório ###
+    ### return result                                                 ###
+    #####################################################################
+    return cv2.normalize(
+        result,
+        None,
+        alpha=0,
+        beta=255,
+        norm_type=cv2.NORM_MINMAX,
+        dtype=cv2.CV_32F
+    ).astype(np.uint8)
 
 def convert_pixel(curr_pixel):
     [r, g, b] = curr_pixel
