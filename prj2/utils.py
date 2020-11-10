@@ -10,9 +10,11 @@ def halftoning(img, edist_id='a', sweep_mode='default'):
     error_distribution = get_error_distribution(edist_id)
     
     for row in range(0, height):
-        row_range_min = 0 if sweep_mode != 'alternate' or row % 2 == 0 else width
-        row_range_max = width if row_range_min == 0 else 0
-        for col in range(row_range_min, row_range_max):
+        row_range_min = 0 if sweep_mode != 'alternate' or row % 2 == 0 else width -1
+        row_range_max = width if row_range_min == 0 else -1
+        # IMPORTANTE: Comentar no relatório necessidade de utilizar step para alternado funcionar
+        step = 1 if row_range_min == 0 else -1
+        for col in range(row_range_min, row_range_max, step):
             result[row][col] = convert_pixel(img[row][col])
             err_rgb = get_error_rgb(img[row][col], result[row][col]) 
             apply_err(img, (row, col), err_rgb, error_distribution)
@@ -53,7 +55,7 @@ def apply_err(img, pi_pos, error_rgb, edist):
 
     for i in range(0, w):
         for j in range(0, h):
-            target_x = x + i - half_w
+            target_x = x + i - half_w # Abordar esta decisão no relatório
             target_y = y + j
             if target_x < 0 or target_y < 0 or\
                target_x >= img.shape[0] or target_y >= img.shape[1]:
