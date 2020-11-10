@@ -33,11 +33,11 @@ def halftoning(img, edist_id='a', sweep_mode='default'):
     ).astype(np.uint8)
 
 def convert_pixel(curr_pixel):
-    [r, g, b] = curr_pixel
+    [b, g, r] = curr_pixel
     return [
-        0 if r < 128 else 1,
+        0 if b < 128 else 1,
         0 if g < 128 else 1,
-        0 if b < 128 else 1
+        0 if r < 128 else 1
     ]
 
 def get_error_rgb(old_pi, new_pi, pi_length=3):
