@@ -41,7 +41,9 @@ def convert_pixel(curr_pixel):
 def get_error_rgb(old_pi, new_pi, pi_length=3):
     result = np.zeros((3))
     for i in range(0, pi_length):
-        result[i] = old_pi[0] - new_pi[0] * 255
+        # IMPORTANTE: Comparar com indexização errada no pixel no relatório
+        # result[i] = old_pi[0] - new_pi[0] * 255
+        result[i] = old_pi[i] - new_pi[i] * 255
     return result
 
 def apply_err(img, pi_pos, error_rgb, edist):
