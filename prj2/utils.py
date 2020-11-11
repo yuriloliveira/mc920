@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import math
+from matplotlib import pyplot as plt
 from error_distributions import get_error_distribution
 
 def halftoning(img, edist_id='a', sweep_mode='default'):
@@ -64,3 +65,10 @@ def apply_err(img, pi_pos, error_rgb, edist):
                 img[target_x][target_y][band] =\
                     img[target_x][target_y][band] +\
                     edist[i][j] * error_rgb[band]
+
+def plot_histogram(img):
+    bands = ['b', 'g', 'r']
+    for i in range(0, 3):
+        hist = cv2.calcHist([img], [i], None, [256], [0, 256])
+        plt.plot(hist, 'o', color=bands[i], label=bands[i])
+    plt.show()

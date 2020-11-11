@@ -21,9 +21,15 @@ class Parser:
             help='path to output of filtering (output will be an .png image)',\
             dest='output_path'
         )
-        self.__parser.add_argument('--skip-image-show', '-ss',\
-            help="if passed, a window showing the source image and the filtered won't be open",\
-            dest='skip_image_show',\
+        self.__parser.add_argument('--display_mode', '-dm',\
+            help="what will be displayed (images (default): source and result image, hist: histogram, off: nothing will be displayed).",\
+            dest='display_mode',\
+            default='images',\
+            choices=['images', 'hist', 'off']
+        )
+        self.__parser.add_argument('--show-histogram', '-sh',\
+            help="if passed, a window showing the histogram of the result image will be displayed",\
+            dest='show_histogram',\
             action='store_true'
         )
         self.__args = vars(self.__parser.parse_args())
