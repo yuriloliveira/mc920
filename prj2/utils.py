@@ -6,8 +6,8 @@ from error_distributions import get_error_distribution
 
 def halftoning(img, edist_id='a', sweep_mode='default'):
     PIXEL_SIZE = 3 # only supports rgb images
-    (width, height, _) = img.shape
-    result = np.zeros((width, height, PIXEL_SIZE))
+    (height, width, _) = img.shape
+    result = np.zeros((height, width, PIXEL_SIZE))
     error_distribution = get_error_distribution(edist_id)
     
     for row in range(0, height):
@@ -56,7 +56,7 @@ def apply_err(img, pi_pos, error_rgb, edist):
 
     for i in range(0, w):
         for j in range(0, h):
-            target_x = x + i - half_w # Abordar esta decisão no relatório
+            target_x = x + i - half_w # Abordar esta decisão no relatório (limitação)
             target_y = y + j
             if target_x < 0 or target_y < 0 or\
                target_x >= img.shape[0] or target_y >= img.shape[1]:
