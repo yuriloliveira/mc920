@@ -5,6 +5,6 @@ for E in 'a' 'b' 'c' 'd' 'e' 'f'
 do
     echo "Processing image images/$1.png with error distribution '$E'..."
     python3 halftoning.py -i images/$1.png -ed $E -o $2/$1_$E.png -dm off
-    echo "Processing image images/$1.png with error distribution '$E' and sweep mode alternate..."
-    python3 halftoning.py -i images/$1.png -ed $E -o $2/$1_${E}_alternate.png -dm off -sm alternate
+    # echo "Processing image images/$1.png with error distribution '$E' and sweep mode alternate..."
+    # python3 halftoning.py -i images/$1.png -ed $E -o $2/$1_${E}_alternate.png -dm off -sm alternate
 done
