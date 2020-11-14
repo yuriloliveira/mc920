@@ -9,7 +9,7 @@ def halftoning(img, edist_id='a', sweep_mode='default'):
     (height, width, _) = img.shape
     result = np.zeros((height, width, PIXEL_SIZE))
     error_distribution = get_error_distribution(edist_id)
-    (edist_w, edist_h) = error_distribution.shape
+    (edist_w, edist_h, _) = error_distribution.shape
 
     for row in range(0+edist_h, height-edist_h):
         row_range_min = 0 if sweep_mode != 'alternate' or row % 2 == 0 else width -1
@@ -40,24 +40,10 @@ def get_error_rgb(old_pi, new_pi, pi_length=3):
     return old_pi - (new_pi * 255)
 
 def apply_err(img, pi_pos, error_rgb, edist):
-    (h, w) = edist.shape
+    (w, h, _) = edist.shape
     (x, y) = pi_pos
     half_w = math.floor(w / 2)
-
-    # for i in range(0, h):
-    #     for j in range(0, w):
-    #         target_x = x + i - half_w
-    #         target_y = y + j
-    #         if target_x < 0 or target_y < 0 or\
-    #            target_x >= img.shape[0] or target_y >= img.shape[1]:
-    #            continue
-    #         for band in range(0, 3):
-    #             img[target_x][target_y][band] =\
-    #                 img[target_x][target_y][band] +\
-    #                 edist[i][j] * error_rgb[band]
-    # print(edist)
-    # print(error_rgb)
-    img[x - half_w:x + half_w,y:y+h] = img[x - half_w:x + half_w,y:y+h] + (np.matmul(edist, error_rgb)) # only works for (a) Floyd and Steinberg
+    img[x - half_w:x + half_w+1, y:y+h] = img[x - half_w:x + half_w+1,y:y+h] + (edist * error_rgb)
 
 def plot_histogram(img):
     bands = ['b', 'g', 'r']
