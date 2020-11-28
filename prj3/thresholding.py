@@ -7,11 +7,10 @@ from thresholding_method import ThresholdingMethod
 args = Parser()
 # Command arguments
 img_path = args.get_arg('image')
+method = args.get_arg('method')
 
 img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
-# img = np.arange(81).reshape((9,9))
-# print(img)
-thres_method = ThresholdingMethod('bernsen')
+thres_method = ThresholdingMethod(method)
 res_img = thres_method.process(img)
 
 cv2.imshow('source image', img)

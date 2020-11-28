@@ -9,6 +9,11 @@ class Parser:
             help='path to image which will be processed',\
             dest='image'
         )
+        self.__parser.add_argument('--method', '-m',\
+            help='thresholding method',\
+            dest='method',
+            choices=['global', 'bernsen', 'niblack', 'sauvola', 'phansalskar', 'contrast', 'mean', 'median']
+        )
         self.__args = vars(self.__parser.parse_args())
 
     def get_arg(self, arg_id):
