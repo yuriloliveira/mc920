@@ -4,6 +4,12 @@ class ThresholdingMethod:
     METHODS = {
         'global': thresholding_implementations.thres_global,
         'bernsen': thresholding_implementations.thres_bernsen,
+        'niblack': thresholding_implementations.thres_niblack,
+        'sauvola': thresholding_implementations.thres_sauvola_pietaksinen,
+        'phansalskar': thresholding_implementations.thres_phansalskar,
+        'contrast': thresholding_implementations.thres_contrast,
+        'mean': thresholding_implementations.thres_mean,
+        'median': thresholding_implementations.thres_median
     }
 
     def __init__(self, method_id):
