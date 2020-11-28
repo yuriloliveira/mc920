@@ -4,8 +4,8 @@ import math
 
 DEFAULT_N = 3
 
-def thres_global(img, threshold=128):
-    return generic_filter(img, lambda pi: 0 if pi > threshold else 255, size=(1,1))
+def thres_global(img, T=128):
+    return generic_filter(img, lambda pi: 0 if pi > T else 255, size=(1,1))
 
 def thres_bernsen(img, n=DEFAULT_N):
     threshold_matrix = generic_filter(img, bernsen_aux, size=(n,n))

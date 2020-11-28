@@ -14,6 +14,42 @@ class Parser:
             dest='method',
             choices=['global', 'bernsen', 'niblack', 'sauvola', 'phansalskar', 'contrast', 'mean', 'median']
         )
+        self.__parser.add_argument('-T',\
+            help='Threshold param used in global method',
+            dest='T',
+            required=False,
+            type=int
+        )
+        self.__parser.add_argument('-n',\
+            help='Size of the neighborhood',
+            dest='n',
+            required=False,
+            type=int
+        )
+        self.__parser.add_argument('-k',\
+            help='k param used in niblack, sauvola and phansalskar methods',
+            dest='k',
+            required=False,
+            type=float
+        )
+        self.__parser.add_argument('-R',\
+            help='R param used in sauvola and phansalskar methods',
+            dest='R',
+            required=False,
+            type=float
+        )
+        self.__parser.add_argument('-p',\
+            help='p param used in phansalskar methods',
+            dest='p',
+            required=False,
+            type=float
+        )
+        self.__parser.add_argument('-q',\
+            help='q param used in phansalskar methods',
+            dest='q',
+            required=False,
+            type=float
+        )
         self.__args = vars(self.__parser.parse_args())
 
     def get_arg(self, arg_id):
