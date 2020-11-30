@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 from scipy.ndimage import generic_filter
 import math
 
@@ -15,7 +16,7 @@ def thres_niblack(img, n=DEFAULT_N, k=0.1):
     threshold_matrix = generic_filter(img, niblack_aux(k), size=(n,n))
     return apply_threshold(img, threshold_matrix)
 
-def thres_sauvola_pietaksinen(img, n=DEFAULT_N, k=0.5, R=4):
+def thres_sauvola_pietaksinen(img, n=DEFAULT_N, k=0.5, R=128):
     threshold_matrix = generic_filter(img, sauvola_aux(k, R), size=(n,n))
     return apply_threshold(img, threshold_matrix)
 
@@ -45,6 +46,9 @@ def niblack_aux(k):
 
 def sauvola_aux(k, R):
     def aux(ng):
+        result = np.mean(ng) * (1 + (k * ((np.std(ng) / R) - 1)))
+        if result < 0 or result > 255:
+            print(result)
         return np.mean(ng) * (1 + (k * ((np.std(ng) / R) - 1)))
     return aux
 
@@ -59,7 +63,18 @@ def contrast_aux(ng):
     closer_to_max = abs((curr_pi - np.min(ng))) - abs((curr_pi - np.max(ng)))
     return 255 if closer_to_max else 0
 
-def apply_threshold(img, threshold_matrix):
+def apply_threshold(img, threshold_matrix, norm=True):
+    norm_threshold = threshold_matrix
+    if norm:
+        norm_threshold = cv2.normalize(\
+            norm_threshold,
+            None,
+            alpha=0,
+            beta=255,
+            norm_type=cv2.NORM_MINMAX,
+            dtype=cv2.CV_32F
+        )
+
     res_img = np.zeros(img.shape)
-    res_img[img <= threshold_matrix] = 255
-    return res_img
+    res_img[img > norm_threshold] = 255
+    return res_img.astype(np.uint8)

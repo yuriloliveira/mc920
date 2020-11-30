@@ -9,6 +9,10 @@ class Parser:
             help='path to image which will be processed',\
             dest='image'
         )
+        self.__parser.add_argument('--out', '-o',\
+            help='path to save the processed image',
+            dest='out'
+        )
         self.__parser.add_argument('--method', '-m',\
             help='thresholding method',\
             dest='method',
@@ -49,6 +53,12 @@ class Parser:
             dest='q',
             required=False,
             type=float
+        )
+        self.__parser.add_argument('-dm',\
+            help='What mode of display should be shown',
+            dest='display_mode',
+            required=False,
+            choices=['default', 'hist', 'off']
         )
         self.__args = vars(self.__parser.parse_args())
 
