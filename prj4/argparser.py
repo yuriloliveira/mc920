@@ -6,7 +6,7 @@ class Parser:
 
     def __init__(self):
         self.__parser.add_argument('--mode', '-m',\
-            help='Mode to run in (codify or decodify)',
+            help='Mode to run in',
             dest='mode',
             choices=['codify', 'decodify']
         )
@@ -25,6 +25,10 @@ class Parser:
         self.__parser.add_argument('--textout', '-to',\
             help='Path to the file to save the decodified message',
             dest='textout'
+        )
+        self.__parser.add_argument('--bitplan', '-bp',\
+            help='Least significant bit plans',
+            dest='bitplan'
         )
         self.__args = vars(self.__parser.parse_args())
 
