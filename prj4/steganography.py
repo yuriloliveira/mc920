@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+
 from argparser import Parser
 from codify import codify
 
@@ -14,5 +15,5 @@ textout_path = args.get_arg('textout')
 
 img = cv2.imread(imgin_path, cv2.IMREAD_COLOR)
 if mode == 'codify':
-    res_img = codify(img, '')
+    res_img = codify(img, open(textin_path).read())
     cv2.imwrite(imgout_path, res_img)
