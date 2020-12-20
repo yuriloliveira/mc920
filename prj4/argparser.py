@@ -28,7 +28,8 @@ class Parser:
         )
         self.__parser.add_argument('--bitplan', '-bp',\
             help='Least significant bit plans',
-            dest='bitplan'
+            dest='bitplan',
+            type=int
         )
         self.__args = vars(self.__parser.parse_args())
 
