@@ -1,12 +1,12 @@
 import numpy as np
 import message_utils as mes
 
-def codify(img, message, bitplan=0):
+def codify(img, message, bitplan=0, delimiter_char='@'):
     if bitplan is None:
         bitplan = 0
 
     res = np.array(img).flatten()
-    b_msg = mes.to_bit_array(message)
+    b_msg = mes.to_bit_array(delimiter_char + message + delimiter_char)
     b_msg_len = b_msg.shape[0]
     target_slice = np.array(res[:b_msg_len])
     set_zeros_in_bitplan(target_slice, b_msg == 0, bitplan)
