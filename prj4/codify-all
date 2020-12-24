@@ -1,0 +1,10 @@
+#!/bin/bash
+mkdir -p images_codified
+for text_file_path in ./text/*; do
+    for img_file_path in ./images/*; do
+        img_filename=$(basename $img_file_path .png)
+        text_filename=$(basename $text_file_path .txt)
+        echo "python3 steganography.py -m codify -ti $text_file_path -ii $img_file_path -io ./images_codified/${img_filename}_${text_filename}_$1.png -bp $1"
+        python3 steganography.py -m codify -ti $text_file_path -ii $img_file_path -io ./images_codified/${img_filename}_${text_filename}_bp$1.png -bp $1
+    done
+done

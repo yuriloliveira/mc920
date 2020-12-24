@@ -1,0 +1,7 @@
+#!/bin/bash
+mkdir -p text_decodified
+for img_file_path in ./images_codified/*; do
+    out_filename=$(basename $img_file_path .png)
+    echo "python3 steganography.py -m decodify -ii $img_file_path -io ./text_decodified/$out_filename.txt -bp $1"
+    python3 steganography.py -m decodify -ii $img_file_path -to ./text_decodified/$out_filename.txt -bp $1
+done

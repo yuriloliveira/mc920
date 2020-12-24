@@ -24,4 +24,3 @@ elif mode == 'decodify':
     textout_file = open(textout_path, 'w')
     textout_file.write(str(decodified_msg))
     textout_file.close()
-    print(decodified_msg)
