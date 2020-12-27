@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 from argparser import Parser
 from codify import codify
 from decodify import decodify
+from bitplane_utils import extract_rgb_bitplane, merge_rgb
 
 args = Parser()
 # Command arguments
@@ -24,3 +25,10 @@ elif mode == 'decodify':
     textout_file = open(textout_path, 'w')
     textout_file.write(str(decodified_msg))
     textout_file.close()
+elif mode == 'bitplanes':
+    for bitplane in [0, 1, 2, 7]:
+        bitplane_blue, bitplane_green, bitplane_red = extract_rgb_bitplane(img, bitplane)
+        bitplanes_img = merge_rgb(bitplane_blue, bitplane_green, bitplane_red)
+        cv2.imshow('bitplane ' + str(bitplane), bitplanes_img)
+    cv2.waitKey()
+    cv2.destroyAllWindows()

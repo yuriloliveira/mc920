@@ -8,7 +8,7 @@ class Parser:
         self.__parser.add_argument('--mode', '-m',\
             help='Mode to run in',
             dest='mode',
-            choices=['codify', 'decodify']
+            choices=['codify', 'decodify', 'bitplanes']
         )
         self.__parser.add_argument('--imagein', '-ii',\
             help='Path to the image in',\
